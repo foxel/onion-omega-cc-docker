@@ -1,15 +1,13 @@
 #!/bin/bash
 
-[ -d openwrt ] || git clone git://git.openwrt.org/15.05/openwrt.git
-cd openwrt
+[ -d source ] || git clone https://github.com/lede-project/source source
+cd source
 grep 'src-git onion' feeds.conf.default || \
     echo 'src-git onion https://github.com/OnionIoT/OpenWRT-Packages.git;omega2' >> feeds.conf.default
 scripts/feeds update -a
+scripts/feeds install -a
 
-sed -i "/^CONFIG_TARGET_ar71xx_generic_/s/^/# /" .config
-sed -i "/CONFIG_TARGET_ar71xx_generic_OMEGA/i CONFIG_TARGET_ar71xx_generic_OMEGA=y" .config
-
-make defconfig
+make menuconfig
 
 N=`nproc`
 
