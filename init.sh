@@ -3,7 +3,7 @@
 [ -d openwrt ] || git clone git://git.openwrt.org/15.05/openwrt.git
 cd openwrt
 grep 'src-git onion' feeds.conf.default || \
-    echo 'src-git onion https://github.com/OnionIoT/OpenWRT-Packages.git' >> feeds.conf.default
+    echo 'src-git onion https://github.com/OnionIoT/OpenWRT-Packages.git;omega2' >> feeds.conf.default
 scripts/feeds update -a
 
 sed -i "/^CONFIG_TARGET_ar71xx_generic_/s/^/# /" .config
